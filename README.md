@@ -1,17 +1,16 @@
-
+A microservices-based authentication system built with Django, Django REST Framework, JWT, PostgreSQL, and Docker. The project separates authentication into a dedicated Auth Service while an Independent Site relies entirely on it for user authentication and token validation.
 
 ## What did I build?
 
-I built two separate Django backends that talk to each other:
+I built a distributed authentication system consisting of three components:
 
-**1. Auth Service** (port 8000) - It stores all user passwords (hashed), handles login, and generates JWT tokens. No other service is allowed to store passwords.
+1. **Auth Service (Port 8000)** – Stores user credentials securely, handles registration and login, and issues JWT access tokens. It is the only service responsible for password management.
 
-**2. Independent Site** (port 8001) - This is a regular website that completely depends on the auth service for login. It never stores passwords or generates tokens on its own. It just asks the auth service for verification
+2. **Independent Site (Port 8001)** – A separate Django application that manages its own user profiles and protected resources. It never stores passwords or generates tokens, instead relying entirely on the Auth Service for authentication and token validation.
 
-**3. Frontend** (port 3000) - A simple HTML page with register, login and dashboard.
+3. **Frontend (Port 3000)** – A simple HTML/JavaScript frontend that allows users to register, log in, and access a protected dashboard.
 
-I also set up two separate PostgreSQL databases, one for each service.
-
+Each backend service uses its own PostgreSQL database, ensuring data isolation and independent ownership.
 
 ## How does it work?
 
